@@ -52,10 +52,7 @@ function Footer() {
             <Box sx={{ alignItems: "center", display: "flex", flexDirection: "column", gap: 3.3, mt: { xs: 7, md: 8 }, width: "100%" }}>
             <Box sx={{ alignItems: "center", display: "flex", gap: 1, justifyContent: "center" }}>
                 <Box sx={{ bgcolor: "#2776c9", borderRadius: "2px", color: "#fff", fontSize: 10, fontWeight: 800, px: 0.7, py: 0.45 }}>AMEX</Box>
-                <Box sx={{ bgcolor: "#fff", border: "1px solid #bbb", borderRadius: "3px", color: "#111", fontSize: 12, fontWeight: 700, px: 0.7, py: 0.3 }}> Pay</Box>
-                <Box sx={{ bgcolor: "#fff", borderRadius: "3px", color: "#777", fontSize: 12, fontWeight: 700, px: 0.7, py: 0.4 }}>G Pay</Box>
-                <Box sx={{ bgcolor: "#fff", borderRadius: "3px", color: "#555", fontSize: 12, fontWeight: 700, px: 0.7, py: 0.4 }}>🔴◐</Box>
-                <Box sx={{ bgcolor: "#5b45df", borderRadius: "3px", color: "#fff", fontSize: 12, fontWeight: 700, px: 0.7, py: 0.4 }}>D Pay</Box>
+                <Box sx={{ bgcolor: "#5b45df", borderRadius: "3px", color: "#fff", fontSize: 12, fontWeight: 700, px: 0.7, py: 0.4 }}>Pay</Box>
                 <Box sx={{ bgcolor: "#fff", borderRadius: "3px", color: "#1941a5", fontSize: 12, fontStyle: "italic", fontWeight: 800, px: 0.7, py: 0.4 }}>VISA</Box>
             </Box>
             <Typography sx={{ color: "#777", fontSize: 14 }}>{String.fromCharCode(169)} 2022 MinaSpace. All rights reserved.</Typography>

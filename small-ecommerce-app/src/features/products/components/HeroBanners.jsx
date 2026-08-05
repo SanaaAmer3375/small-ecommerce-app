@@ -13,7 +13,7 @@ const banners = [
     background: "#f0eafb",
     button: "Shop Now",
     description: "Print shirts for yourself or your creative works.",
-    image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=1200&q=85",
+    image: "https://images.unsplash.com/photo-1627225924765-552d49cf47ad?auto=format&fit=crop&w=1100&q=85",
     imagePosition: "center",
     title: "Marina\nTest",
   },

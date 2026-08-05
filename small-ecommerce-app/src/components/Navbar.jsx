@@ -19,7 +19,6 @@ import {
     Facebook,
     Instagram,
     YouTube,
-    MenuOutlined,
 } from "@mui/icons-material";
 import { useAppDispatch } from "../app/hooks";
 import { logout } from "../features/auth/authSlice";
@@ -201,8 +200,14 @@ function Navbar() {
                 <ShoppingBagOutlined sx={{ color: "#111", fontSize: 22 }} />
                 </Badge>
                 </IconButton>
-                <IconButton size="small" aria-label="Search" sx={{ display: { xs: "inline-flex", md: "none" } }}><Search sx={{ color: "#111", fontSize: 22 }} /></IconButton>
-                <IconButton size="small" aria-label="Menu" sx={{ display: { xs: "inline-flex", md: "none" } }}><MenuOutlined sx={{ color: "#111", fontSize: 25 }} /></IconButton>
+            <Button
+                disableElevation
+                onClick={() => dispatch(logout())}
+                size="small"
+                sx={{ bgcolor: "#000", borderRadius: "6px", color: "#fff", display: { xs: "inline-flex", md: "none" }, fontSize: 11, fontWeight: 700, minWidth: "auto", px: 1.35, py: 0.65, textTransform: "none", "&:hover": { bgcolor: "#222" } }}
+                >
+                Logout
+            </Button>
             </Stack>
 
             </Toolbar>

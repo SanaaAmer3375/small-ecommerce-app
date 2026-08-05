@@ -30,12 +30,13 @@ function FeaturesSection() {
           <Box sx={{ filter: "drop-shadow(0 11px 14px rgba(0,0,0,.13))", mx: "auto", position: "relative", width: { xs: "100%", md: 360 } }}>
             <Box sx={{ bgcolor: "#fff", border: "6px solid #e8e8e8", borderRadius: "12px", height: 218, p: 2.1 }}>
               <Box sx={{ display: "grid", gap: 1.35, gridTemplateColumns: "1.05fr 1fr", height: "100%" }}>
-                <Box sx={{ alignItems: "center", bgcolor: "#ededed", display: "flex", justifyContent: "center" }}>
-                  <Box component="svg" viewBox="0 0 140 160" aria-label="T-shirt design preview" sx={{ height: 125, overflow: "visible", width: 112 }}>
-                    <path d="M42 18 57 31h26l15-13 34 31-22 25-13-10v75H43V64L30 74 8 49 42 18Z" fill="#172221" />
-                    <path d="M57 31c1 13 25 13 26 0" fill="none" stroke="#ededed" strokeWidth="5" />
-                    <path d="M58 94h25m-12-20v20m-13 0 13-12 13 12" fill="none" stroke="#2cbd7d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
-                  </Box>
+                <Box sx={{ alignItems: "center", bgcolor: "#ededed", display: "flex", justifyContent: "center", overflow: "hidden" }}>
+                  <Box
+                    component="img"
+                    src="https://images.unsplash.com/photo-1627225924765-552d49cf47ad?auto=format&fit=crop&w=1100&q=85"
+                    alt="T-shirt product preview"
+                    sx={{ height: "100%", objectFit: "cover", width: "100%" }}
+                  />
                 </Box>
                 <Box>
                   <Box sx={{ bgcolor: "#dedede", borderRadius: 2, height: 8, mb: 1, width: "72%" }} />
