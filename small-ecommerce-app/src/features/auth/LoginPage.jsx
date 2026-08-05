@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import {
     Box,
     TextField,
@@ -22,7 +22,7 @@ function LoginPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/products";
-    const { loading, error } = useAppSelector((state) => state.auth);
+    const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
     const {
         register,
         handleSubmit,
@@ -39,6 +39,10 @@ function LoginPage() {
     const handleTogglePassword = () => {
         setShowPassword((prev) => !prev);
     };
+
+    if (isAuthenticated) {
+        return <Navigate to="/products" replace />;
+    }
 
     return (
         <Container maxWidth="xs" sx={{ mt: 8 }}>
