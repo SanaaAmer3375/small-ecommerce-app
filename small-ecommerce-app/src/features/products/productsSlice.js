@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchProducts } from './productsThunks';
+import { fetchProductById, fetchProducts } from './productsThunks';
 
 const initialState = {
     items: [],
@@ -8,6 +8,9 @@ const initialState = {
     currentPage: 1,
     total: 0,
     limit: 10,
+    selectedProduct: null,
+    detailsLoading: false,
+    detailsError: null,
 };
 
 const productsSlice = createSlice({
@@ -32,6 +35,18 @@ const productsSlice = createSlice({
         .addCase(fetchProducts.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload || 'Failed to fetch products';
+        })
+        .addCase(fetchProductById.pending, (state) => {
+            state.detailsLoading = true;
+            state.detailsError = null;
+        })
+        .addCase(fetchProductById.fulfilled, (state, action) => {
+            state.detailsLoading = false;
+            state.selectedProduct = action.payload;
+        })
+        .addCase(fetchProductById.rejected, (state, action) => {
+            state.detailsLoading = false;
+            state.detailsError = action.payload || 'Failed to fetch product details';
         });
     },
 });

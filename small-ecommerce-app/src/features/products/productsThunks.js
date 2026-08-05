@@ -16,3 +16,18 @@ export const fetchProducts = createAsyncThunk(
         }
     }
 );
+
+export const fetchProductById = createAsyncThunk(
+  'products/fetchProductById',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`https://dummyjson.com/products/${id}`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || err.message);
+    }
+  },
+  {
+    condition: (id, { getState }) => getState().products.selectedProduct?.id !== Number(id),
+  }
+);

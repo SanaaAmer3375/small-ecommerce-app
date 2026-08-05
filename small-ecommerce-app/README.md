@@ -1,16 +1,76 @@
-# React + Vite
+# Mina Space — Product Listing & Details App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive e-commerce front-end built as a technical assessment. It includes authentication, protected product routes, paginated product listing, and product details fetched from DummyJSON.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React + Vite
+- Material UI (MUI)
+- Redux Toolkit with `createAsyncThunk`
+- React Router
+- React Hook Form
+- Axios
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Dummy login form with validation for email and password.
+- Authentication state and token persisted in `localStorage`.
+- Protected `/products` and `/products/:id` routes.
+- Redirect to the login page for unauthenticated visitors, then return to the originally requested page after login.
+- Redirect authenticated visitors from `/login` to `/products`.
+- Logout action that clears Redux state and `localStorage`.
+- Paginated product list from DummyJSON using `limit=10` and `skip`.
+- Responsive product cards with product image, title, price, and a details link.
+- Product details page with image gallery, category, description, price, rating, brand, stock status, loading, error handling, and Redux caching.
+- Responsive landing-page sections styled to match the provided Mina Space design.
 
-## Expanding the ESLint configuration
+## Run locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js 18 or newer
+- npm
+
+### Installation
+
+```bash
+git clone <your-repository-url>
+cd small-ecommerce-app
+npm install
+npm run dev
+```
+
+Open the local address shown by Vite, usually `http://localhost:5173`.
+
+## Demo credentials
+
+Use the following credentials to access the protected product pages:
+
+| Field | Value |
+| --- | --- |
+| Email | `sanaa@gmail.com` |
+| Password | `123456` |
+
+## Available scripts
+
+```bash
+npm run dev     # Start the development server
+npm run build   # Create a production build
+npm run preview # Preview the production build
+npm run lint    # Run ESLint
+```
+
+## Routes
+
+| Route | Description |
+| --- | --- |
+| `/login` | Login page |
+| `/products` | Protected, paginated product listing |
+| `/products/:id` | Protected product details page |
+| `*` | Not found page |
+
+## API
+
+- Product list: `https://dummyjson.com/products?limit=10&skip=<offset>`
+- Product details: `https://dummyjson.com/products/:id`
+
