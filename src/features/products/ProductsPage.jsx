@@ -11,20 +11,37 @@ import FeaturesSection from "./components/FeaturesSection";
 import FeatureShowcase from "./components/FeatureShowcase";
 import PricingSection from "./components/PricingSection";
 import TestimonialsSection from "./components/TestimonialsSection";
+import { useSearchParams } from "react-router-dom";
 
 function ProductsPage() {
     const dispatch = useAppDispatch();
     const { items, loading, error, currentPage, total, limit } = useAppSelector(
         (state) => state.products
     );
+    const [searchParams, setSearchParams] = useSearchParams();
+    const requestedPage = Number(searchParams.get("page"));
+    const pageFromUrl = Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : null;
+    const page = pageFromUrl || currentPage;
 
     useEffect(() => {
-        dispatch(fetchProducts(currentPage));
-    }, [dispatch, currentPage]);
+        if (page !== currentPage) {
+            dispatch(setCurrentPage(page));
+        }
+    }, [currentPage, dispatch, page]);
+
+    useEffect(() => {
+        dispatch(fetchProducts(page));
+    }, [dispatch, page]);
 
     const pageCount = Math.ceil(total / limit);
-
-    const handlePageChange = (event, value) => {
+    const handlePageChange = (_, value) => {
+        const nextSearchParams = new URLSearchParams(searchParams);
+        if (value === 1) {
+            nextSearchParams.delete("page");
+        } else {
+            nextSearchParams.set("page", String(value));
+        }
+        setSearchParams(nextSearchParams);
         dispatch(setCurrentPage(value));
     };
 
@@ -69,7 +86,7 @@ function ProductsPage() {
             <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
                 <Pagination
                 count={pageCount}
-                page={currentPage}
+                page={page}
                 onChange={handlePageChange}
                 sx={{ "& .MuiPaginationItem-root": { borderRadius: "50%", color: "#111", fontSize: 12 }, "& .Mui-selected": { bgcolor: "#2cbd7d !important", color: "#fff" } }}
                 shape="rounded"
@@ -77,7 +94,6 @@ function ProductsPage() {
             </Box>
             )}
         </Container>
-
         <FeaturesSection />
         <FeatureShowcase />
         <PricingSection />
