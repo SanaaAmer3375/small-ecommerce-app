@@ -34,7 +34,7 @@ A responsive e-commerce front-end built as a technical assessment. It includes a
 ### Installation
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/SanaaAmer3375/small-ecommerce-app.git
 cd small-ecommerce-app
 npm install
 npm run dev
