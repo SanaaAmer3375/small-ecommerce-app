@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { EmailOutlined, LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
-import { Alert, Box, Button, CircularProgress, Container, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Checkbox, CircularProgress, Container, FormControlLabel, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loginUser } from "./authThunks";
 
@@ -22,7 +22,7 @@ function LoginPage() {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/products";
     const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ defaultValues: { rememberMe: false } });
 
     const onSubmit = async (data) => {
         const result = await dispatch(loginUser(data));
@@ -83,10 +83,14 @@ function LoginPage() {
                 {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
                 slotProps={{ input: { startAdornment: <InputAdornment position="start"><LockOutlined sx={{ color: "#8d9993", fontSize: 20 }} /></InputAdornment>, endAdornment: <InputAdornment position="end"><IconButton onClick={() => setShowPassword((value) => !value)} edge="end" aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment> } }}
                 sx={{ mb: 1, "& .MuiOutlinedInput-root": { borderRadius: "8px", height: 52 } }}
-                />
-                <Typography sx={{ color: "#7a8981", fontSize: 12, mb: 3.2 }}>Use your account password to sign in securely.</Typography>
-
-                <Button type="submit" variant="contained" fullWidth disabled={isSubmitting || loading} sx={{ bgcolor: "#2cbd7d", borderRadius: "8px", fontSize: 15, fontWeight: 700, minHeight: 52, textTransform: "none", "&:hover": { bgcolor: "#22a96d" } }}>
+            />
+            <Typography sx={{ color: "#7a8981", fontSize: 12, mb: 3.2 }}>Use your account password to sign in securely.</Typography>
+            <FormControlLabel
+                control={<Checkbox {...register("rememberMe")} size="small" sx={{ color: "#2cbd7d", p: 0.6, "&.Mui-checked": { color: "#2cbd7d" } }} />}
+                label="Remember me on this device"
+                sx={{ color: "#526158", display: "flex", fontSize: 13, m: 0, mb: 2.5, "& .MuiFormControlLabel-label": { fontSize: 13 } }}
+            />
+            <Button type="submit" variant="contained" fullWidth disabled={isSubmitting || loading} sx={{ bgcolor: "#2cbd7d", borderRadius: "8px", fontSize: 15, fontWeight: 700, minHeight: 52, textTransform: "none", "&:hover": { bgcolor: "#22a96d" } }}>
                 {loading ? <CircularProgress size={23} color="inherit" /> : "Sign in"}
                 </Button>
             </Box>

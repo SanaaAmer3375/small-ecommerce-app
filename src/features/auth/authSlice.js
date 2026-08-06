@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser } from './authThunks';
 
-const storedUser = localStorage.getItem('user');
-const storedToken = localStorage.getItem('token');
+const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
+const storedToken = localStorage.getItem('token') || sessionStorage.getItem('token');
 
 const initialState = {
     user: storedUser ? JSON.parse(storedUser) : null,
@@ -22,6 +22,8 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         localStorage.removeItem('user');
         localStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token');
         },
     },
     extraReducers: (builder) => {
@@ -35,8 +37,17 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
             state.user = action.payload.user;
             state.token = action.payload.token;
-            localStorage.setItem('user', JSON.stringify(action.payload.user));
-            localStorage.setItem('token', action.payload.token);
+            if (action.meta.arg.rememberMe) {
+                localStorage.setItem('user', JSON.stringify(action.payload.user));
+                localStorage.setItem('token', action.payload.token);
+                sessionStorage.removeItem('user');
+                sessionStorage.removeItem('token');
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                sessionStorage.setItem('user', JSON.stringify(action.payload.user));
+                sessionStorage.setItem('token', action.payload.token);
+            }
         })
         .addCase(loginUser.rejected, (state, action) => {
             state.loading = false;
