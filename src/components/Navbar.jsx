@@ -10,7 +10,9 @@ import {
     Paper,
     Stack,
 } from "@mui/material";
+import { useContext } from "react";
 import {
+    DarkModeOutlined,
     Search,
     ShoppingBagOutlined,
     KeyboardArrowDown,
@@ -18,19 +20,26 @@ import {
     Twitter,
     Facebook,
     Instagram,
+    LightModeOutlined,
     YouTube,
 } from "@mui/icons-material";
 import { useAppDispatch } from "../app/hooks";
 import { logout } from "../features/auth/authSlice";
+import { ColorModeContext } from "../theme";
 
 function Navbar() {
     const dispatch = useAppDispatch();
     const navLinks = ["HOME", "MINASPACE", "SHOP", "BLOG", "CONTACT"];
-
+    const { mode, toggleColorMode } = useContext(ColorModeContext);
+    const isDark = mode === "dark";
+    const surface = isDark ? "#18221d" : "#fff";
+    const mutedSurface = isDark ? "#111914" : "#f9f9f9";
+    const textColor = isDark ? "#f5fbf7" : "#111";
+    
     return (
         <Box component="header" sx={{ width: "100%" }}>
         {/* 1. Top Announcement Bar */}
-        <Box sx={{ bgcolor: "#f9f9f9", py: 1.15, borderBottom: "1px solid #f0f0f0", px: { xs: 2, md: 3.5 } }}>
+        <Box sx={{ bgcolor: mutedSurface, py: 1.15, borderBottom: `1px solid ${isDark ? "#2b3931" : "#f0f0f0"}`, px: { xs: 2, md: 3.5 } }}>
             <Box
             sx={{
                 display: "grid",
@@ -53,13 +62,16 @@ function Navbar() {
             <Typography
                 variant="caption"
                 fontWeight={600}
-                sx={{ color: "#111", fontSize: { xs: 12, sm: 16 }, overflow: "hidden", textAlign: "center", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                sx={{ color: textColor, fontSize: { xs: 12, sm: 16 }, overflow: "hidden", textAlign: "center", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
             >
                 🔥 Free shipping on all U.S. orders $50+
             </Typography>
 
           {/* Auth Actions (Right) */}
             <Stack direction="row" spacing={2} alignItems="center" sx={{ display: { xs: "none", md: "flex" }, justifyContent: "flex-end", ml: "auto" }}>
+                <IconButton onClick={toggleColorMode} size="small" aria-label={`Switch to ${isDark ? "light" : "dark"} theme`} sx={{ color: textColor }}>
+                    {isDark ? <LightModeOutlined fontSize="small" /> : <DarkModeOutlined fontSize="small" />}
+                </IconButton>
                 <Button
                 disableElevation
                 size="small"
@@ -83,7 +95,7 @@ function Navbar() {
         </Box>
 
         {/* 2. Main Navigation Bar */}
-        <AppBar position="static" color="inherit" elevation={0} sx={{ bgcolor: "#fff", px: { xs: 2, md: 3.5 } }}>
+        <AppBar position="static" color="inherit" elevation={0} sx={{ bgcolor: surface, px: { xs: 2, md: 3.5 } }}>
             <Toolbar disableGutters sx={{ display: "grid", gridTemplateAreas: { xs: '"brand actions"', lg: '"nav brand actions"' }, gridTemplateColumns: { xs: "minmax(0, 1fr) auto", lg: "minmax(420px, 1fr) auto minmax(320px, 1fr)" }, gap: { xs: 1, lg: 0 }, maxWidth: 1250, minHeight: { xs: 62, md: 86 }, mx: "auto", width: "100%" }}>
             
             {/* Left Nav Links */}
@@ -95,7 +107,7 @@ function Navbar() {
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
-                    color: idx === 0 ? "#12b76a" : "#111",
+                    color: idx === 0 ? "#12b76a" : textColor,
                     fontWeight: 700,
                     fontSize: 13.5,
                     letterSpacing: "0.5px",
@@ -136,7 +148,7 @@ function Navbar() {
                     },
                 }}
                 />
-                <Typography variant="h5" sx={{ color: "#111", fontFamily: "Arial, Helvetica, sans-serif", fontSize: { xs: 25, md: 31 }, fontWeight: 800, letterSpacing: "-1.25px", lineHeight: 1, whiteSpace: "nowrap" }}>
+                <Typography variant="h5" sx={{ color: textColor, fontFamily: "Arial, Helvetica, sans-serif", fontSize: { xs: 25, md: 31 }, fontWeight: 800, letterSpacing: "-1.25px", lineHeight: 1, whiteSpace: "nowrap" }}>
                 Mina Space
                 </Typography>
             </Box>
@@ -150,8 +162,8 @@ function Navbar() {
                     p: "9px 12px",
                     display: { xs: "none", md: "flex" },
                     alignItems: "center",
-                    bgcolor: "#fff",
-                    border: "1px solid #e4e7ec",
+                    bgcolor: surface,
+                    border: `1px solid ${isDark ? "#405148" : "#e4e7ec"}`,
                     borderRadius: "8px",
                     width: 230,
                 }}
@@ -159,7 +171,7 @@ function Navbar() {
                 <Search sx={{ color: "#667085", fontSize: 20, mr: 1 }} />
                 <InputBase
                     placeholder="Search..."
-                    sx={{ fontSize: 13, flex: 1, color: "#111" }}
+                    sx={{ fontSize: 13, flex: 1, color: textColor }}
                 />
                 </Paper>
 
@@ -200,6 +212,9 @@ function Navbar() {
                 <ShoppingBagOutlined sx={{ color: "#111", fontSize: 22 }} />
                 </Badge>
                 </IconButton>
+            <IconButton onClick={toggleColorMode} size="small" aria-label={`Switch to ${isDark ? "light" : "dark"} theme`} sx={{ color: textColor, display: { xs: "inline-flex", md: "none" } }}>
+                {isDark ? <LightModeOutlined fontSize="small" /> : <DarkModeOutlined fontSize="small" />}
+            </IconButton>
             <Button
                 disableElevation
                 onClick={() => dispatch(logout())}

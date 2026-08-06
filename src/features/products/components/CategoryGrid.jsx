@@ -54,7 +54,7 @@ function CategoryGrid() {
             <Button
               disableElevation
               variant="contained"
-              sx={{ bgcolor: "#fff", borderRadius: "8px", bottom: 18, boxShadow: "none", color: "#111", fontSize: 11, fontWeight: 600, left: "50%", minWidth: { xs: 125, md: 96 }, px: 1.5, position: "absolute", textTransform: "none", transform: "translateX(-50%)", whiteSpace: "nowrap", "&:hover": { bgcolor: "#fff", boxShadow: "none" } }}
+              sx={{ bgcolor: "background.paper", border: "1px solid", borderColor: "divider", borderRadius: "8px", bottom: 18, boxShadow: "none", color: "text.primary", fontSize: 11, fontWeight: 600, left: "50%", minWidth: { xs: 125, md: 96 }, px: 1.5, position: "absolute", textTransform: "none", transform: "translateX(-50%)", whiteSpace: "nowrap", "&:hover": { bgcolor: "background.paper", boxShadow: "none" } }}
             >
               {category.label}
             </Button>

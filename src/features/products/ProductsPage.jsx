@@ -54,10 +54,10 @@ function ProductsPage() {
         {/* 4. Featured Products (Dynamic API Data) */}
         <Container maxWidth={false} sx={{ maxWidth: 790, mx: "auto", px: { xs: 2, md: 3.5 }, py: { xs: 6, md: 9 } }}>
             <Box sx={{ textAlign: "center", mb: 5.5 }}>
-            <Typography component="h2" sx={{ color: "#111", fontSize: { xs: 24, md: 26 }, fontWeight: 800, letterSpacing: "-0.7px", mb: 0.8 }}>
+            <Typography component="h2" sx={{ color: "text.primary", fontSize: { xs: 24, md: 26 }, fontWeight: 800, letterSpacing: "-0.7px", mb: 0.8 }}>
                 Featured products
             </Typography>
-            <Typography sx={{ color: "#888", fontSize: 12 }}>
+            <Typography sx={{ color: "text.secondary", fontSize: 12 }}>
                 What's more, we do it right!
             </Typography>
             </Box>
@@ -88,7 +88,7 @@ function ProductsPage() {
                 count={pageCount}
                 page={page}
                 onChange={handlePageChange}
-                sx={{ "& .MuiPaginationItem-root": { borderRadius: "50%", color: "#111", fontSize: 12 }, "& .Mui-selected": { bgcolor: "#2cbd7d !important", color: "#fff" } }}
+                sx={{ "& .MuiPaginationItem-root": { borderRadius: "50%", color: "text.primary", fontSize: 12 }, "& .Mui-selected": { bgcolor: "#2cbd7d !important", color: "#fff" } }}
                 shape="rounded"
                 />
             </Box>

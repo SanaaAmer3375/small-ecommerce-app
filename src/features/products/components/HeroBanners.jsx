@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 
 const banners = [
   {
@@ -20,13 +20,15 @@ const banners = [
 ];
 
 function HeroBanners() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
   return (
     <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" }, maxWidth: 1440, mx: "auto", overflow: "hidden", width: "100%" }}>
       {banners.map((banner) => (
         <Box
           key={banner.title}
           sx={{
-            bgcolor: banner.background,
+            bgcolor: isDark ? "#24352e" : banner.background,
             minHeight: { xs: 460, md: 535 },
             overflow: "hidden",
             position: "relative",
@@ -43,7 +45,7 @@ function HeroBanners() {
               opacity: 0.9,
               position: "absolute",
               "&::after": {
-                background: `linear-gradient(90deg, ${banner.background} 2%, ${banner.background}cc 30%, transparent 67%)`,
+                background: `linear-gradient(90deg, ${isDark ? "#24352e" : banner.background} 2%, ${isDark ? "#24352ee6" : `${banner.background}cc`} 30%, transparent 67%)`,
                 content: "''",
                 inset: 0,
                 position: "absolute",
@@ -51,10 +53,10 @@ function HeroBanners() {
             }}
           />
           <Box sx={{ bottom: { xs: 48, md: 55 }, left: { xs: 28, md: 56 }, maxWidth: 245, position: "absolute", zIndex: 1 }}>
-            <Typography component="h1" sx={{ color: "#111", fontSize: { xs: 28, md: 30 }, fontWeight: 800, letterSpacing: "-1px", lineHeight: 1.14, mb: 2.1, whiteSpace: "pre-line" }}>
+            <Typography component="h1" sx={{ color: "text.primary", fontSize: { xs: 28, md: 30 }, fontWeight: 800, letterSpacing: "-1px", lineHeight: 1.14, mb: 2.1, whiteSpace: "pre-line" }}>
               {banner.title}
             </Typography>
-            <Typography sx={{ color: "#777", fontSize: 14, lineHeight: 1.65, mb: 3.5 }}>
+            <Typography sx={{ color: "text.secondary", fontSize: 14, lineHeight: 1.65, mb: 3.5 }}>
               {banner.description}
             </Typography>
             <Button disableElevation variant="contained" sx={{ bgcolor: "#2cbd7d", borderRadius: "9px", fontSize: 12, fontWeight: 700, minHeight: 42, px: 3.4, textTransform: "none", "&:hover": { bgcolor: "#21a96c" } }}>

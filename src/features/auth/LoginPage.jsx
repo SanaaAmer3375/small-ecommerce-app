@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { EmailOutlined, LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
-import { Alert, Box, Button, Checkbox, CircularProgress, Container, FormControlLabel, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Checkbox, CircularProgress, Container, FormControlLabel, IconButton, InputAdornment, TextField, Typography, useTheme } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loginUser } from "./authThunks";
 
@@ -28,11 +28,13 @@ function LoginPage() {
         const result = await dispatch(loginUser(data));
         if (loginUser.fulfilled.match(result)) navigate(from, { replace: true });
     };
+    const { palette } = useTheme();
+    const isDark = palette.mode === "dark";
 
     if (isAuthenticated) return <Navigate to="/products" replace />;
 
     return (
-        <Box sx={{ bgcolor: "#fff", display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, minHeight: "100vh" }}>
+    <Box sx={{ bgcolor: "background.default", display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, minHeight: "100vh" }}>
         <Box sx={{ background: "radial-gradient(circle at 17% 82%, #b9f2d8 0 70px, transparent 71px), radial-gradient(circle at 80% 22%, #d3f9e6 0 130px, transparent 131px), #e8f8f1", display: { xs: "none", md: "flex" }, flexDirection: "column", justifyContent: "space-between", overflow: "hidden", p: { md: 5, lg: 8 }, position: "relative" }}>
             <BrandMark />
             <Box sx={{ maxWidth: 410, position: "relative", zIndex: 1 }}>
@@ -46,13 +48,13 @@ function LoginPage() {
         <Box sx={{ alignItems: "center", display: "flex", px: { xs: 2.5, sm: 5, md: 7 }, py: 6 }}>
             <Container disableGutters maxWidth="xs">
             <Box sx={{ display: { xs: "block", md: "none" }, mb: 6 }}><BrandMark /></Box>
-            <Typography component="h2" sx={{ color: "#111", fontSize: 32, fontWeight: 800, letterSpacing: "-1.2px", mb: 1 }}>Welcome back</Typography>
-            <Typography sx={{ color: "#777", fontSize: 15, mb: 4 }}>Sign in to continue to your Mina Space account.</Typography>
+            <Typography component="h2" sx={{ color: "text.primary", fontSize: 32, fontWeight: 800, letterSpacing: "-1.2px", mb: 1 }}>Welcome back</Typography>
+            <Typography sx={{ color: "text.secondary", fontSize: 15, mb: 4 }}>Sign in to continue to your Mina Space account.</Typography>
 
             {error && <Alert severity="error" sx={{ mb: 2.5 }}>{error}</Alert>}
 
             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-                <Typography component="label" htmlFor="login-email" sx={{ color: "#222", display: "block", fontSize: 13, fontWeight: 700, mb: 0.8 }}>Email address</Typography>
+            <Typography component="label" htmlFor="login-email" sx={{ color: "text.primary", display: "block", fontSize: 13, fontWeight: 700, mb: 0.8 }}>Email address</Typography>
                 <TextField
                 id="login-email"
                 fullWidth
@@ -65,14 +67,14 @@ function LoginPage() {
                 mb: 2.3,
                 "& .MuiOutlinedInput-root": { borderRadius: "8px", height: 52 },
                 "& input:-webkit-autofill, & input:-webkit-autofill:hover, & input:-webkit-autofill:focus": {
-                  WebkitBoxShadow: "0 0 0 100px #fff inset",
-                  WebkitTextFillColor: "#111",
-                  caretColor: "#111",
+                  WebkitBoxShadow: `0 0 0 100px ${isDark ? "#101713" : "#fff"} inset`,
+                  WebkitTextFillColor: isDark ? "#f5fbf7" : "#111",
+                  caretColor: isDark ? "#f5fbf7" : "#111",
                 },
               }}
                 />
 
-                <Typography component="label" htmlFor="login-password" sx={{ color: "#222", display: "block", fontSize: 13, fontWeight: 700, mb: 0.8 }}>Password</Typography>
+            <Typography component="label" htmlFor="login-password" sx={{ color: "text.primary", display: "block", fontSize: 13, fontWeight: 700, mb: 0.8 }}>Password</Typography>
                 <TextField
                 id="login-password"
                 type={showPassword ? "text" : "password"}
@@ -84,19 +86,19 @@ function LoginPage() {
                 slotProps={{ input: { startAdornment: <InputAdornment position="start"><LockOutlined sx={{ color: "#8d9993", fontSize: 20 }} /></InputAdornment>, endAdornment: <InputAdornment position="end"><IconButton onClick={() => setShowPassword((value) => !value)} edge="end" aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment> } }}
                 sx={{ mb: 1, "& .MuiOutlinedInput-root": { borderRadius: "8px", height: 52 } }}
             />
-            <Typography sx={{ color: "#7a8981", fontSize: 12, mb: 3.2 }}>Use your account password to sign in securely.</Typography>
+            <Typography sx={{ color: "text.secondary", fontSize: 12, mb: 3.2 }}>Use your account password to sign in securely.</Typography>
             <FormControlLabel
                 control={<Checkbox {...register("rememberMe")} size="small" sx={{ color: "#2cbd7d", p: 0.6, "&.Mui-checked": { color: "#2cbd7d" } }} />}
                 label="Remember me on this device"
-                sx={{ color: "#526158", display: "flex", fontSize: 13, m: 0, mb: 2.5, "& .MuiFormControlLabel-label": { fontSize: 13 } }}
+                sx={{ color: "text.secondary", display: "flex", fontSize: 13, m: 0, mb: 2.5, "& .MuiFormControlLabel-label": { fontSize: 13 } }}
             />
             <Button type="submit" variant="contained" fullWidth disabled={isSubmitting || loading} sx={{ bgcolor: "#2cbd7d", borderRadius: "8px", fontSize: 15, fontWeight: 700, minHeight: 52, textTransform: "none", "&:hover": { bgcolor: "#22a96d" } }}>
                 {loading ? <CircularProgress size={23} color="inherit" /> : "Sign in"}
                 </Button>
             </Box>
 
-            <Box sx={{ bgcolor: "#f6fbf8", borderRadius: "8px", mt: 3.2, p: 1.8 }}>
-                <Typography sx={{ color: "#65746c", fontSize: 12, lineHeight: 1.65 }}>Demo account: <Box component="span" sx={{ color: "#222", fontWeight: 700 }}>sanaa@gmail.com</Box> &nbsp;·&nbsp; Password: <Box component="span" sx={{ color: "#222", fontWeight: 700 }}>123456</Box></Typography>
+            <Box sx={{ bgcolor: isDark ? "#182a20" : "#f6fbf8", border: "1px solid", borderColor: isDark ? "#31513e" : "transparent", borderRadius: "8px", mt: 3.2, p: 1.8 }}>
+            <Typography sx={{ color: "text.secondary", fontSize: 12, lineHeight: 1.65 }}>Demo account: <Box component="span" sx={{ color: "text.primary", fontWeight: 700 }}>sanaa@gmail.com</Box> &nbsp;·&nbsp; Password: <Box component="span" sx={{ color: "text.primary", fontWeight: 700 }}>123456</Box></Typography>
             </Box>
             </Container>
         </Box>

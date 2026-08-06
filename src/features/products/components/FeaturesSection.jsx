@@ -10,25 +10,25 @@ const steps = [
 
 function FeaturesSection() {
   return (
-    <Box component="section" sx={{ bgcolor: "#f7f7f7", mt: { xs: 6, md: 9 }, px: { xs: 2, md: 3.5 }, py: { xs: 7, md: 8 } }}>
+    <Box component="section" sx={{ bgcolor: "background.paper", mt: { xs: 6, md: 9 }, px: { xs: 2, md: 3.5 }, py: { xs: 7, md: 8 } }}>
       <Box sx={{ margin: "0 auto", maxWidth: 900, textAlign: "center" }}>
-        <Typography component="h2" sx={{ color: "#111", fontSize: { xs: 23, md: 25 }, fontWeight: 800, letterSpacing: "-0.8px", mb: 0.8 }}>
+        <Typography component="h2" sx={{ color: "text.primary", fontSize: { xs: 23, md: 25 }, fontWeight: 800, letterSpacing: "-0.8px", mb: 0.8 }}>
           T-shirt printing made easy.
         </Typography>
-        <Typography sx={{ color: "#888", fontSize: 11 }}>Let us show you how your product come to life.</Typography>
+        <Typography sx={{ color: "text.secondary", fontSize: 11 }}>Let us show you how your product come to life.</Typography>
 
         <Box sx={{ alignItems: "center", display: "grid", gap: { xs: 5, md: 4 }, gridTemplateColumns: { xs: "1fr", md: "1fr 1.3fr 0.18fr" }, mt: { xs: 6, md: 6.5 }, textAlign: "left" }}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1.7 }}>
             {steps.map((step, index) => (
               <Box key={step} sx={{ alignItems: "flex-start", display: "flex", gap: 1.15 }}>
-                <Box sx={{ alignItems: "center", bgcolor: index === 0 ? "#28bd7d" : "#fff", border: index === 0 ? "none" : "1px solid #d8eee4", borderRadius: "50%", color: index === 0 ? "#fff" : "#28bd7d", display: "flex", flex: "0 0 auto", fontSize: 10, height: 20, justifyContent: "center", mt: 0.1, width: 20 }}>{index + 1}</Box>
-                <Typography sx={{ color: "#222", fontSize: 10, fontWeight: 600, lineHeight: 1.35, maxWidth: 190 }}>{step}</Typography>
+                <Box sx={{ alignItems: "center", bgcolor: index === 0 ? "#28bd7d" : "background.default", border: index === 0 ? "none" : "1px solid #d8eee4", borderRadius: "50%", color: index === 0 ? "#fff" : "#28bd7d", display: "flex", flex: "0 0 auto", fontSize: 10, height: 20, justifyContent: "center", mt: 0.1, width: 20 }}>{index + 1}</Box>
+                <Typography sx={{ color: "text.primary", fontSize: 10, fontWeight: 600, lineHeight: 1.35, maxWidth: 190 }}>{step}</Typography>
               </Box>
             ))}
           </Box>
 
           <Box sx={{ filter: "drop-shadow(0 11px 14px rgba(0,0,0,.13))", mx: "auto", position: "relative", width: { xs: "100%", md: 360 } }}>
-            <Box sx={{ bgcolor: "#fff", border: "6px solid #e8e8e8", borderRadius: "12px", height: 218, p: 2.1 }}>
+            <Box sx={{ bgcolor: "background.default", border: "6px solid", borderColor: "divider", borderRadius: "12px", height: 218, p: 2.1 }}>
               <Box sx={{ display: "grid", gap: 1.35, gridTemplateColumns: "1.05fr 1fr", height: "100%" }}>
                 <Box sx={{ alignItems: "center", bgcolor: "#ededed", display: "flex", justifyContent: "center", overflow: "hidden" }}>
                   <Box
